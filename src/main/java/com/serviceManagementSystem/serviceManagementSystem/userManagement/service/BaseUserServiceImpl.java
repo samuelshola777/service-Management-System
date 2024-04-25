@@ -33,12 +33,14 @@ public class BaseUserServiceImpl implements BaseUserService {
 
     @PostConstruct
     private void createFirstStaff() {
-        BaseUser baseUser = BaseUser.builder()
-                .email(FIRST_EMAIL)
-                .password(hashPassword(PASSWORD_FOR_FIRST_STAFF))
-                .role(SystemRole.CUSTOMER)
-                .build();
-        userRepository.save(baseUser);
+        if (!userRepository.existsByEmailAndRole(FIRST_EMAIL, SystemRole.STAFF)) {
+            BaseUser baseUser = BaseUser.builder()
+                    .email(FIRST_EMAIL)
+                    .password(hashPassword(PASSWORD_FOR_FIRST_STAFF))
+                    .role(SystemRole.STAFF)
+                    .build();
+            userRepository.save(baseUser);
+        }
     }
 
 
