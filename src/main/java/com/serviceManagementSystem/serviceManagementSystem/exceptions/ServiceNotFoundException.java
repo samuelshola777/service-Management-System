@@ -13,4 +13,3 @@ public class ServiceNotFoundException extends ServiceManagementException {
     }
 
 }
-

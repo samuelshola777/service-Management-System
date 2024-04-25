@@ -10,4 +10,6 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
     List<Quote> findAllByCustomer(BaseUser customer);
 
+    List<Quote> findAllByStaffAssignedTo(BaseUser staff);
+
 }

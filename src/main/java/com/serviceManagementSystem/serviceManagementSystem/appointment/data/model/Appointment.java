@@ -29,8 +29,12 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.EAGER)
     private ServiceProvided service;
 
+    private Double cost;
+
     private LocalDate date;
 
     private String time;
+
+    private Long rescheduleCount;
 
 }

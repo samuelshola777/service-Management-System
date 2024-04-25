@@ -45,5 +45,10 @@ public class QuoteController {
         return new ResponseEntity<>(quoteService.getQuoteForCustomer(customerEmail), HttpStatus.OK);
     }
 
+    @GetMapping("/getQuoteForStaff")
+    public ResponseEntity<List<QuoteResponse>> getQuoteForStaff(@RequestParam String staffEmail) {
+        return new ResponseEntity<>(quoteService.getQuoteForStaff(staffEmail), HttpStatus.OK);
+    }
+
 
 }
