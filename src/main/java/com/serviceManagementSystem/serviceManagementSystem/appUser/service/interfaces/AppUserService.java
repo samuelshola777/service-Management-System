@@ -1,6 +1,7 @@
 package com.serviceManagementSystem.serviceManagementSystem.appUser.service.interfaces;
 
 
+import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.ChangePasswordRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.LoginRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.RegisterRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.response.RegisterResponse;
@@ -12,4 +13,5 @@ public interface AppUserService {
     RegisterResponse loginAppUser(LoginRequest request);
     RegisterResponse logOutAppUser(LoginRequest request);
     RegisterResponse updateAppUser(RegisterRequest request);
+    RegisterResponse changePassword(ChangePasswordRequest changePasswordRequest);
 }

@@ -1,5 +1,6 @@
 package com.serviceManagementSystem.serviceManagementSystem.customer.service.implementation;
 
+import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.ChangePasswordRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.LoginRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.RegisterRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.response.RegisterResponse;
@@ -39,6 +40,16 @@ public class CustomerServiceIMPL implements CustomerService {
     @Override
     public RegisterResponse logout(LoginRequest loginRequest) {
         return appUserService.logOutAppUser(loginRequest);
+    }
+
+    @Override
+    public RegisterResponse updateCustomerProfile(RegisterRequest registerRequest) {
+        return appUserService.updateAppUser(registerRequest);
+    }
+
+    @Override
+    public RegisterResponse changeCustomerPassword(ChangePasswordRequest registerRequest) {
+        return appUserService.changePassword(registerRequest);
     }
 
 
