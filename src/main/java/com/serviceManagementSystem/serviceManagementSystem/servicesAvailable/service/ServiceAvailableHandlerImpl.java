@@ -35,7 +35,7 @@ public class ServiceAvailableHandlerImpl implements ServiceAvailableHandler {
     }
 
     @Override
-    public ServiceDto findService(Long id) {
+    public ServiceDto findService(long id) {
         ServiceProvided serviceProvided = getServiceById(id);
         return ServiceDto.builder()
                 .id(serviceProvided.getId())

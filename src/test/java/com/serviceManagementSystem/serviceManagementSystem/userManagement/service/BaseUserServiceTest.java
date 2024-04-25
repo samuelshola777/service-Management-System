@@ -166,10 +166,11 @@ class BaseUserServiceTest {
 
     @Test
     void getCustomerUserByEmail() {
-        as
+        assertNotNull(baseUserService.getCustomerUserByEmail("adeolaFool@gmail.com"));
     }
 
     @Test
     void getStaffUserByEmail() {
+        assertNotNull(baseUserService.getStaffUserByEmail("uncleNewStaff@gmail.com"));
     }
 }

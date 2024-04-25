@@ -9,7 +9,7 @@ public interface ServiceAvailableHandler {
 
     ServiceDto createService(ServiceDto service);
 
-    ServiceDto findService(Long id);
+    ServiceDto findService(long id);
 
     List<ServiceProvided> findAll();
 
