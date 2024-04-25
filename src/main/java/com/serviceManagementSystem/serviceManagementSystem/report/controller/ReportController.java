@@ -28,9 +28,9 @@ public class ReportController {
         return new ResponseEntity<>(reportService.generateWorkloadReport(), HttpStatus.OK);
     }
 
-    @GetMapping("/customer/history/{customerId}")
-    public ResponseEntity<List<AppointmentDto>> getCustomerRequestHistory(@PathVariable Long customerId) {
-        return new ResponseEntity<>(reportService.getCustomerRequestHistory(customerId), HttpStatus.OK);
+    @GetMapping("/customer/history/")
+    public ResponseEntity<List<AppointmentDto>> getCustomerRequestHistory(@RequestParam String customerEmail) {
+        return new ResponseEntity<>(reportService.getCustomerRequestHistory(customerEmail), HttpStatus.OK);
     }
 
 }

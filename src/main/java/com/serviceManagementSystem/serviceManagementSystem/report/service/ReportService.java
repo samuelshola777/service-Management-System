@@ -11,6 +11,6 @@ public interface ReportService {
 
     List<WorkloadReport> generateWorkloadReport();
 
-    List<AppointmentDto> getCustomerRequestHistory(Long customerId);
+    List<AppointmentDto> getCustomerRequestHistory(String customerEmail);
 
 }
