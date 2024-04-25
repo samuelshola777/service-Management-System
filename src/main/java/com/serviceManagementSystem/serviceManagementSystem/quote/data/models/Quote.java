@@ -1,10 +1,9 @@
 package com.serviceManagementSystem.serviceManagementSystem.quote.data.models;
 
 import com.serviceManagementSystem.serviceManagementSystem.quote.data.models.enums.QuoteStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.models.ServiceProvided;
+import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.BaseUser;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,13 +14,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class QuoteRequest {
+public class Quote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long customerId;
-    private Long serviceId;
+
+    @ManyToOne
+    private BaseUser customer;
+
+    @ManyToOne
+    private BaseUser staffAssignedTo;
+
+    @ManyToOne
+    private ServiceProvided service;
+
     private QuoteStatus status;
 
 }

@@ -3,7 +3,6 @@ package com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.se
 import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.dtos.ServiceDto;
 import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.models.ServiceProvided;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
-
 import java.util.List;
 
 public interface ServiceAvailableHandler {
@@ -17,5 +16,7 @@ public interface ServiceAvailableHandler {
     ServiceDto updateService(ServiceDto serviceDto);
 
     OperationResponse deleteService(Long id);
+
+    ServiceProvided getServiceById(Long id);
 
 }

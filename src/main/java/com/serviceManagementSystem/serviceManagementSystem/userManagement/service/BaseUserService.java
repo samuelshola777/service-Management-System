@@ -3,6 +3,7 @@ package com.serviceManagementSystem.serviceManagementSystem.userManagement.servi
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.*;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response.LoginResponse;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response.RegisterResponse;
+import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.BaseUser;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 
 public interface BaseUserService {
@@ -20,5 +21,11 @@ public interface BaseUserService {
     OperationResponse changeUserPassword(ChangePasswordRequest registerRequest);
 
     OperationResponse deleteUserAccount(DeleteRequest deleteRequest);
+
+    BaseUser getUserByEmail(String email);
+
+    BaseUser getCustomerUserByEmail(String email);
+
+    BaseUser getStaffUserByEmail(String email);
 
 }
