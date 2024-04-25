@@ -1,16 +1,15 @@
 package com.serviceManagementSystem.serviceManagementSystem.exceptions;
 
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+public class UserNotFoundException extends ServiceManagementException {
 
-public class UserNotFoundException extends GlobalGeneralException {
-    private String message;
-
-    public UserNotFoundException(){
+    public UserNotFoundException() {
         this("User not found");
     }
+
     public UserNotFoundException(String message) {
-        super(message, HttpStatus.BAD_GATEWAY);
+        super(message, HttpStatus.NOT_FOUND);
     }
+
 }
