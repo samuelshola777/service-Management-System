@@ -10,6 +10,7 @@ import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.dat
 import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.service.ServiceAvailableHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ReportServiceImpl implements ReportService {
 
 
     @Override
-    public List<RevenueReport> generateRevenueReport(String startDate, String endDate) {
+    public List<RevenueReport> generateRevenueReport(LocalDate startDate, LocalDate endDate) {
         Map<String, Double> revenueByServiceType = new HashMap<>();
         List<Appointment> appointments = appointmentService.findAllBetweenDates(startDate, endDate);
         for (Appointment appointment : appointments) {
