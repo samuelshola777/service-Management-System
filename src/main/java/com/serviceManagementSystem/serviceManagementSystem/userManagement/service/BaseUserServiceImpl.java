@@ -1,15 +1,12 @@
 package com.serviceManagementSystem.serviceManagementSystem.userManagement.service;
 
 
-import com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.enums.SystemRole;
 import com.serviceManagementSystem.serviceManagementSystem.exceptions.*;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.ChangePasswordRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.LoginRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.RegisterRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.RegisterStaffRequest;
+import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.*;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response.LoginResponse;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response.RegisterResponse;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.BaseUser;
+import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.SystemRole;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.repository.BaseUserRepository;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +48,7 @@ public class BaseUserServiceImpl implements BaseUserService {
     @Override
     public LoginResponse loginCustomer(LoginRequest loginRequest) {
         BaseUser foundUser = userRepository.findByEmailAndRole(loginRequest.getEmail(), SystemRole.CUSTOMER)
-                .orElseThrow(EmailAlreadyExistsException::new);
+                .orElseThrow(UserNotFoundException::new);
         String hashedPassword = hashPassword(loginRequest.getPassword());
         if (hashedPassword.equals(foundUser.getPassword())) {
             return LoginResponse.builder()
@@ -87,7 +84,7 @@ public class BaseUserServiceImpl implements BaseUserService {
     @Override
     public LoginResponse loginStaff(LoginRequest loginRequest) {
         BaseUser foundUser = userRepository.findByEmailAndRole(loginRequest.getEmail(), SystemRole.STAFF)
-                .orElseThrow(EmailAlreadyExistsException::new);
+                .orElseThrow(UserNotFoundException::new);
         String hashedPassword = hashPassword(loginRequest.getPassword());
         if (hashedPassword.equals(foundUser.getPassword())) {
             return LoginResponse.builder()
@@ -101,14 +98,8 @@ public class BaseUserServiceImpl implements BaseUserService {
 
     @Override
     public RegisterResponse updateUserDetails(RegisterRequest registerRequest) {
-        if (!userRepository.existsByEmail(registerRequest.getEmail())) {
-            throw new UserNotFoundException();
-        }
-        if (!userRepository.existsByEmail(registerRequest.getEmail())) {
-            throw new UserNotFoundException();
-        }
         BaseUser foundUser = userRepository.findByEmail(registerRequest.getEmail())
-                .orElseThrow(EmailAlreadyExistsException::new);
+                .orElseThrow(UserNotFoundException::new);
         foundUser.setFirstName(registerRequest.getFirstName());
         foundUser.setLastName(registerRequest.getLastName());
         foundUser.setEmail(registerRequest.getEmail());
@@ -123,11 +114,8 @@ public class BaseUserServiceImpl implements BaseUserService {
 
     @Override
     public OperationResponse changeUserPassword(ChangePasswordRequest registerRequest) {
-        if (!userRepository.existsByEmail(registerRequest.getEmail())) {
-            throw new UserNotFoundException();
-        }
         BaseUser foundUser = userRepository.findByEmail(registerRequest.getEmail())
-                .orElseThrow(EmailAlreadyExistsException::new);
+                .orElseThrow(UserNotFoundException::new);
         if (!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {
             throw new InvalidPasswordException();
         }
@@ -136,6 +124,21 @@ public class BaseUserServiceImpl implements BaseUserService {
         return OperationResponse.builder()
                 .status("SUCCESS")
                 .build();
+    }
+
+    @Override
+    public OperationResponse deleteUserAccount(DeleteRequest deleteRequest) {
+        BaseUser foundUser = userRepository.findByEmail(deleteRequest.getEmail())
+                .orElseThrow(UserNotFoundException::new);
+        String hashedPassword = hashPassword(deleteRequest.getPassword());
+        if (hashedPassword.equals(foundUser.getPassword())) {
+            userRepository.delete(foundUser);
+            return OperationResponse.builder()
+                    .status("SUCCESSFUL")
+                    .build();
+        } else {
+            throw new InvalidLoginDetailsExceptions("User cannot be deleted");
+        }
     }
 
     private String hashPassword(String password) {

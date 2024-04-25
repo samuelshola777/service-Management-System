@@ -1,6 +1,5 @@
 package com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model;
 
-import com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.enums.SystemRole;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
