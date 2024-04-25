@@ -1,11 +1,14 @@
 package com.serviceManagementSystem.serviceManagementSystem.admin.data.model;
 
-import com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.AppUser;
-import lombok.Builder;
-import lombok.Data;
+import jakarta.persistence.Entity;
+import lombok.*;
 
-@Data
-@Builder
-public class StaffAdmin {
-    private AppUser appUser;
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+public class StaffAdmin extends BaseUser {
+
+
 }

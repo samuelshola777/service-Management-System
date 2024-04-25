@@ -3,8 +3,7 @@ package com.serviceManagementSystem.serviceManagementSystem.appUser.data.model;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.enums.SystemRole;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -14,5 +13,5 @@ public class AppUser {
     private String password;
     private String fullName;
     private SystemRole role;
-    private LocalDateTime registrationDate;
+    private LocalDate registrationDate;
 }
