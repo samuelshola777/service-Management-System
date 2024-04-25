@@ -7,6 +7,8 @@ import com.serviceManagementSystem.serviceManagementSystem.appointment.data.repo
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.service.BaseUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,6 +34,16 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .date(appointment.getDate())
                 .time(appointment.getTime())
                 .build()).toList();
+    }
+
+    @Override
+    public List<Appointment> findAllBetweenDates(LocalDate startDate, LocalDate endDate) {
+        List<Appointment> allAppointments = appointmentRepository.findAll();
+        return allAppointments.stream().filter(
+                appointment ->
+                        appointment.getDate().isAfter(startDate)
+                        &&
+                        appointment.getDate().isBefore(endDate)).toList();
     }
 
 }
