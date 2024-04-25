@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -26,6 +28,7 @@ public class AppUserServiceIMPL implements AppUserService {
         appUser.setRole(request.getRole());
         appUser.setPassword(request.getPassword());
         appUser.setFullName(request.getFullName());
+        appUser.setRegistrationDate(LocalDateTime.now());
       return   appUserRepository.save(appUser);
 
     }
@@ -46,6 +49,22 @@ public class AppUserServiceIMPL implements AppUserService {
         if (!foundAppUser.getPassword().equalsIgnoreCase(request.getPassword()))
             throw new IncorrectPasswordException("incorrect password");
         return new RegisterResponse("logout successful");
+    }
+
+    @Override
+    public RegisterResponse updateAppUser(RegisterRequest request) {
+        AppUser foundAppUser = findAppUserByEmail(request.getEmail());
+        if (foundAppUser.getPassword() != null) {
+            foundAppUser.setPassword(request.getPassword());
+        }
+        if (foundAppUser.getEmail() != null) {
+            foundAppUser.setEmail(request.getEmail());
+        }
+        if (foundAppUser.getFullName() != null) {
+            foundAppUser.setFullName(request.getFullName());
+        }
+        appUserRepository.save(foundAppUser);
+        return null;
     }
 
     private AppUser findAppUserByEmail(String email) {
