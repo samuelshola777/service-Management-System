@@ -23,4 +23,5 @@ public class QuoteRequest {
     private Long customerId;
     private Long serviceId;
     private QuoteStatus status;
+
 }

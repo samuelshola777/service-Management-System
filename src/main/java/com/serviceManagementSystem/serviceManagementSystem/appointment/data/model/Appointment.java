@@ -1,4 +1,4 @@
-package com.serviceManagementSystem.serviceManagementSystem.appointment;
+package com.serviceManagementSystem.serviceManagementSystem.appointment.data.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

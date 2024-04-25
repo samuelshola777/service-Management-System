@@ -1,6 +1,7 @@
 package com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.controller;
 
 import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.dtos.ServiceDto;
+import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.models.ServiceProvided;
 import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.service.ServiceAvailableHandler;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class ServiceController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ServiceDto>> getAllServices() {
+    public ResponseEntity<List<ServiceProvided>> getAllServices() {
         return new ResponseEntity<>(serviceHandler.findAll(), HttpStatus.OK);
     }
 
