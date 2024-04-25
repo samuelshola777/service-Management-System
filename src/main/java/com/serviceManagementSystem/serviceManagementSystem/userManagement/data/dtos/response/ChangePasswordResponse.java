@@ -1,7 +1,7 @@
 package com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response;
 
 
-import com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.enums.SystemRole;
+import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.SystemRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
