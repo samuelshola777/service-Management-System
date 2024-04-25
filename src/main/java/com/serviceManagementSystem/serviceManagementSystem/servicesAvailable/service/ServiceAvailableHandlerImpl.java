@@ -8,7 +8,6 @@ import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.dat
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,7 +36,7 @@ public class ServiceAvailableHandlerImpl implements ServiceAvailableHandler {
 
     @Override
     public ServiceDto findService(Long id) {
-        ServiceProvided serviceProvided = serviceRepository.findById(id).orElseThrow(ServiceNotFoundException::new);
+        ServiceProvided serviceProvided = getServiceById(id);
         return ServiceDto.builder()
                 .id(serviceProvided.getId())
                 .name(serviceProvided.getName())
@@ -76,5 +75,10 @@ public class ServiceAvailableHandlerImpl implements ServiceAvailableHandler {
         return OperationResponse.builder()
                 .status("SUCCESSFUL")
                 .build();
+    }
+
+    @Override
+    public ServiceProvided getServiceById(Long id) {
+        return serviceRepository.findById(id).orElseThrow(ServiceNotFoundException::new);
     }
 }

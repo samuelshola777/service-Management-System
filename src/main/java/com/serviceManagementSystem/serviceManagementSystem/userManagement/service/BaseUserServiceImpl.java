@@ -9,8 +9,10 @@ import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.m
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.SystemRole;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.repository.BaseUserRepository;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -22,6 +24,22 @@ import java.util.Base64;
 public class BaseUserServiceImpl implements BaseUserService {
 
     private final BaseUserRepository userRepository;
+
+    @Value("${FIRST_EMAIL}")
+    private String FIRST_EMAIL;
+
+    @Value("${PASSWORD_FOR_FIRST_STAFF}")
+    private String PASSWORD_FOR_FIRST_STAFF;
+
+    @PostConstruct
+    private void createFirstStaff() {
+        BaseUser baseUser = BaseUser.builder()
+                .email(FIRST_EMAIL)
+                .password(hashPassword(PASSWORD_FOR_FIRST_STAFF))
+                .role(SystemRole.CUSTOMER)
+                .build();
+        userRepository.save(baseUser);
+    }
 
 
     @Override
@@ -128,8 +146,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 
     @Override
     public OperationResponse deleteUserAccount(DeleteRequest deleteRequest) {
-        BaseUser foundUser = userRepository.findByEmail(deleteRequest.getEmail())
-                .orElseThrow(UserNotFoundException::new);
+        BaseUser foundUser = getUserByEmail(deleteRequest.getEmail());
         String hashedPassword = hashPassword(deleteRequest.getPassword());
         if (hashedPassword.equals(foundUser.getPassword())) {
             userRepository.delete(foundUser);
@@ -139,6 +156,24 @@ public class BaseUserServiceImpl implements BaseUserService {
         } else {
             throw new InvalidLoginDetailsExceptions("User cannot be deleted");
         }
+    }
+
+    @Override
+    public BaseUser getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public BaseUser getCustomerUserByEmail(String email) {
+        return userRepository.findByEmailAndRole(email, SystemRole.CUSTOMER)
+                .orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public BaseUser getStaffUserByEmail(String email) {
+        return userRepository.findByEmailAndRole(email, SystemRole.STAFF)
+                .orElseThrow(UserNotFoundException::new);
     }
 
     private String hashPassword(String password) {

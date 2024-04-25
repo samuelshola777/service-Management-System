@@ -1,13 +1,13 @@
 package com.serviceManagementSystem.serviceManagementSystem.appointment.data.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.models.ServiceProvided;
+import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.BaseUser;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -20,10 +20,17 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long customerId;
-    private Long staffId;
-    private Long serviceId;
-    private String date;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private BaseUser customer;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private BaseUser staff;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ServiceProvided service;
+
+    private LocalDate date;
+
     private String time;
 
 }
