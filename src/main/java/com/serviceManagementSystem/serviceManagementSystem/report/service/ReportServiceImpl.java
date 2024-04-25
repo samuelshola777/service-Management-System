@@ -6,11 +6,11 @@ import com.serviceManagementSystem.serviceManagementSystem.appointment.data.mode
 import com.serviceManagementSystem.serviceManagementSystem.appointment.services.AppointmentService;
 import com.serviceManagementSystem.serviceManagementSystem.report.model.RevenueReport;
 import com.serviceManagementSystem.serviceManagementSystem.report.model.WorkloadReport;
+import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.models.ServiceProvided;
 import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.service.ServiceAvailableHandler;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.service.BaseUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +21,24 @@ public class ReportServiceImpl implements ReportService {
 
     private final AppointmentService appointmentService;
     private final ServiceAvailableHandler serviceHandler;
-    private final BaseUserService userService;
 
 
     @Override
     public List<RevenueReport> generateRevenueReport(String startDate, String endDate) {
-        return List.of();
+        Map<String, Double> revenueByServiceType = new HashMap<>();
+        List<Appointment> appointments = appointmentService.findAllBetweenDates(startDate, endDate);
+        for (Appointment appointment : appointments) {
+            ServiceProvided service = serviceHandler.getServiceById(appointment.getService().getId());
+            Double revenue = revenueByServiceType.getOrDefault(service.getName(), 0.0);
+            revenueByServiceType.put(service.getName(), revenue + service.getCost());
+        }
+        List<RevenueReport> revenues = new ArrayList<>();
+        revenueByServiceType.forEach((key, value) ->
+                revenues.add(RevenueReport.builder()
+                        .serviceType(key)
+                        .revenue(value)
+                        .build()));
+        return revenues;
     }
 
     @Override
@@ -38,11 +50,17 @@ public class ReportServiceImpl implements ReportService {
             Long workload = workloadDistribution.getOrDefault(staffEmail, 0L);
             workloadDistribution.put(staffEmail, workload + 1);
         }
-        return List.of();
+        List<WorkloadReport> reports = new ArrayList<>();
+        workloadDistribution.forEach((key, value) ->
+                reports.add(WorkloadReport.builder()
+                        .staffEmail(key)
+                        .workLoad(value)
+                        .build()));
+        return reports;
     }
 
     @Override
-    public List<AppointmentDto> getCustomerRequestHistory(Long customerId) {
-        return List.of();
+    public List<AppointmentDto> getCustomerRequestHistory(String customerEmail) {
+        return appointmentService.getQuoteForCustomer(customerEmail);
     }
 }
