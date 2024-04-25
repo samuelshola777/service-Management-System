@@ -1,9 +1,10 @@
 package com.serviceManagementSystem.serviceManagementSystem.quote.services;
 
-import com.serviceManagementSystem.serviceManagementSystem.quote.data.dtos.AssignQuoteToStaffRequestDto;
-import com.serviceManagementSystem.serviceManagementSystem.quote.data.dtos.QuoteRequest;
-import com.serviceManagementSystem.serviceManagementSystem.quote.data.dtos.QuoteResponse;
-import com.serviceManagementSystem.serviceManagementSystem.quote.data.models.Quote;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.request.AssignQuoteToStaffRequestDto;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.request.QuoteRequest;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.response.QuoteResponse;
+import com.serviceManagementSystem.serviceManagementSystem.data.models.Quote;
+import com.serviceManagementSystem.serviceManagementSystem.services.interfaces.QuoteService;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

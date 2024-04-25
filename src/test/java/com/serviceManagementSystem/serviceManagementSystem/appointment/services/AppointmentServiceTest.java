@@ -1,8 +1,9 @@
 package com.serviceManagementSystem.serviceManagementSystem.appointment.services;
 
-import com.serviceManagementSystem.serviceManagementSystem.appointment.data.dto.AppointmentDto;
-import com.serviceManagementSystem.serviceManagementSystem.appointment.data.dto.ScheduleAppointmentRequest;
-import com.serviceManagementSystem.serviceManagementSystem.appointment.data.model.Appointment;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.AppointmentDto;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.request.ScheduleAppointmentRequest;
+import com.serviceManagementSystem.serviceManagementSystem.data.models.Appointment;
+import com.serviceManagementSystem.serviceManagementSystem.services.interfaces.AppointmentService;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

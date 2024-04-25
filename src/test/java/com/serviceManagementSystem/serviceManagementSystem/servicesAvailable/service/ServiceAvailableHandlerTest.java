@@ -1,7 +1,8 @@
 package com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.service;
 
-import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.dtos.ServiceDto;
-import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.models.ServiceProvided;
+import com.serviceManagementSystem.serviceManagementSystem.services.interfaces.ServiceAvailableHandler;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.ServiceDto;
+import com.serviceManagementSystem.serviceManagementSystem.data.models.ServiceProvided;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
