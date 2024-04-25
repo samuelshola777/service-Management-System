@@ -11,4 +11,5 @@ public interface AppUserService {
     AppUser registerAppUser(RegisterRequest request);
     RegisterResponse loginAppUser(LoginRequest request);
     RegisterResponse logOutAppUser(LoginRequest request);
+    RegisterResponse updateAppUser(RegisterRequest request);
 }
