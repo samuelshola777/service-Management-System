@@ -3,6 +3,7 @@ package com.serviceManagementSystem.serviceManagementSystem.quote.services;
 import com.serviceManagementSystem.serviceManagementSystem.quote.data.dtos.AssignQuoteToStaffRequestDto;
 import com.serviceManagementSystem.serviceManagementSystem.quote.data.dtos.QuoteRequest;
 import com.serviceManagementSystem.serviceManagementSystem.quote.data.dtos.QuoteResponse;
+import com.serviceManagementSystem.serviceManagementSystem.quote.data.models.Quote;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 
 public interface QuoteService {
@@ -15,4 +16,5 @@ public interface QuoteService {
 
     QuoteResponse assignQuoteToStaff(AssignQuoteToStaffRequestDto requestDto);
 
+    Quote getQuoteById(Long quoteId);
 }
