@@ -2,15 +2,17 @@ package com.serviceManagementSystem.serviceManagementSystem.appointment.services
 
 
 import com.serviceManagementSystem.serviceManagementSystem.appointment.data.dto.AppointmentDto;
+import com.serviceManagementSystem.serviceManagementSystem.appointment.data.dto.ScheduleAppointmentRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appointment.data.model.Appointment;
 import com.serviceManagementSystem.serviceManagementSystem.appointment.data.repositories.AppointmentRepository;
 import com.serviceManagementSystem.serviceManagementSystem.exceptions.AppointmentNotFoundException;
 import com.serviceManagementSystem.serviceManagementSystem.exceptions.UnableToRescheduleException;
+import com.serviceManagementSystem.serviceManagementSystem.quote.data.models.Quote;
+import com.serviceManagementSystem.serviceManagementSystem.quote.services.QuoteService;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.service.BaseUserService;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +22,25 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final BaseUserService userService;
+    private final QuoteService quoteService;
+
+    @Override
+    public OperationResponse scheduleAppointment(ScheduleAppointmentRequest newAppointment) {
+        Quote foundQuote = quoteService.getQuoteById(newAppointment.getQuoteId());
+        Appointment appointment = Appointment.builder()
+                .customer(foundQuote.getCustomer())
+                .staff(foundQuote.getStaffAssignedTo())
+                .service(foundQuote.getService())
+                .cost(foundQuote.getCost())
+                .date(newAppointment.getDate())
+                .time(newAppointment.getTime())
+                .rescheduleCount(0L)
+                .build();
+        appointmentRepository.save(appointment);
+        return OperationResponse.builder()
+                .status("SUCCESSFUL")
+                .build();
+    }
 
     @Override
     public List<Appointment> findAll() {
@@ -84,7 +105,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public OperationResponse rescheduleAppointment(Long appointmentId, AppointmentDto updatedAppointment) {
+    public OperationResponse rescheduleAppointment(long appointmentId, AppointmentDto updatedAppointment) {
         Appointment appointment = getAppointmentById(appointmentId);
         if (appointment.getRescheduleCount() > 3) {
             throw new UnableToRescheduleException();
@@ -99,7 +120,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public Appointment getAppointmentById(Long appointmentId) {
+    public Appointment getAppointmentById(long appointmentId) {
         return appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(AppointmentNotFoundException::new);

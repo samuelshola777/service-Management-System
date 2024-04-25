@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class AssignQuoteToStaffRequestDto {
 
-    private Long quoteId;
+    private long quoteId;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")

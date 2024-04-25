@@ -12,6 +12,6 @@ public class QuoteRequest {
     @Email(message = "Invalid email format")
     private String customerEmail;
 
-    private Long serviceId;
+    private long serviceId;
 
 }

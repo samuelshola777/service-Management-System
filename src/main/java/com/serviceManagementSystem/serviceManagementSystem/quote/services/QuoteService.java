@@ -12,13 +12,13 @@ public interface QuoteService {
 
     QuoteResponse requestQuote(QuoteRequest quoteRequest);
 
-    OperationResponse acceptQuote(Long quoteId);
+    OperationResponse acceptQuote(long quoteId);
 
-    OperationResponse rejectQuote(Long quoteId);
+    OperationResponse rejectQuote(long quoteId);
 
     QuoteResponse assignQuoteToStaff(AssignQuoteToStaffRequestDto requestDto);
 
-    Quote getQuoteById(Long quoteId);
+    Quote getQuoteById(long quoteId);
 
     List<QuoteResponse> getQuoteForCustomer(String customerEmail);
 

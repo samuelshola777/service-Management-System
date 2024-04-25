@@ -48,7 +48,7 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public OperationResponse acceptQuote(Long quoteId) {
+    public OperationResponse acceptQuote(long quoteId) {
         Quote aQuote = getQuoteById(quoteId);
         aQuote.setStatus(QuoteStatus.ACCEPTED);
         quoteRepository.save(aQuote);
@@ -58,7 +58,7 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public OperationResponse rejectQuote(Long quoteId) {
+    public OperationResponse rejectQuote(long quoteId) {
         Quote aQuote = getQuoteById(quoteId);
         aQuote.setStatus(QuoteStatus.REJECTED);
         quoteRepository.save(aQuote);
@@ -85,7 +85,7 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public Quote getQuoteById(Long quoteId) {
+    public Quote getQuoteById(long quoteId) {
         return quoteRepository.findById(quoteId).orElseThrow(QuoteNotFoundException::new);
     }
 

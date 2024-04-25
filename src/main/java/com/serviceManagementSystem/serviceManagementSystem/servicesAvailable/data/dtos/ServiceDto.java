@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ServiceDto {
 
-    private Long id;
+    private long id;
 
     private String name;
 

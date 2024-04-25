@@ -6,7 +6,7 @@ import com.serviceManagementSystem.serviceManagementSystem.exceptions.UserNotFou
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.ChangePasswordRequest;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.LoginRequest;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.RegisterRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.RegisterStaffRequest;
+
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response.RegisterResponse;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.BaseUser;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
@@ -21,8 +21,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class BaseUserServiceTest {
     @Autowired
     private BaseUserService baseUserService;
-    private RegisterStaffRequest staffRequest;
-    private RegisterStaffRequest staffRequest1;
+
+
+    private RegisterRequest staffRequest;
+
+    private RegisterRequest staffRequest1;
    private ChangePasswordRequest   changeUserPassword;
     private LoginRequest loginRequest1;
     private LoginRequest loginRequest2;
@@ -35,24 +38,24 @@ class BaseUserServiceTest {
     @BeforeEach
     void setUp() {
         registerRequest = new RegisterRequest();
-        registerRequest.setEmail("adeolaFool@gmail.com");
+        registerRequest.setEmail("chigozi@gmail.com");
         registerRequest.setPassword("password");
-        registerRequest.setFirstName("adeola");
-        registerRequest.setLastName("fool");
+        registerRequest.setFirstName("chi chi");
+        registerRequest.setLastName("computer science");
 
 
         loginRequest = new LoginRequest();
         loginRequest2 = new LoginRequest();
-        staffRequest1 = new RegisterStaffRequest();
+        staffRequest1 = new RegisterRequest();
 
 
-       staffRequest = new RegisterStaffRequest();
+       staffRequest = new RegisterRequest();
        staffRequest.setEmail("uncleNewStaff@gmail.com");
        staffRequest.setPassword("password");
        staffRequest.setFirstName("uncleNewStaffFirst");
        staffRequest.setLastName("uncleNewStaffLast");
 
-       staffRequest1 = new RegisterStaffRequest();
+       staffRequest1 = new RegisterRequest();
 
        loginRequest1 = new LoginRequest();
        loginRequest1.setPassword("password");

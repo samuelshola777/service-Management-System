@@ -35,6 +35,6 @@ public class Appointment {
 
     private String time;
 
-    private Long rescheduleCount;
+    private long rescheduleCount;
 
 }
