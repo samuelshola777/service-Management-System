@@ -1,5 +1,6 @@
 package com.serviceManagementSystem.serviceManagementSystem.appUser.service.implementatio;
 
+import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.ChangePasswordRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.LoginRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.request.RegisterRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appUser.DTO.response.RegisterResponse;
@@ -65,6 +66,19 @@ public class AppUserServiceIMPL implements AppUserService {
         }
         appUserRepository.save(foundAppUser);
         return new RegisterResponse("User profile Updated Successfully");
+    }
+
+    @Override
+    public RegisterResponse changePassword(ChangePasswordRequest changePasswordRequest) {
+        AppUser foundAppUser = findAppUserByEmail(changePasswordRequest.getCustomerEmail());
+        if (!foundAppUser.getPassword().equalsIgnoreCase(changePasswordRequest.getPassword()))
+            throw new IncorrectPasswordException("incorrect password");
+        if (changePasswordRequest.getNewPassword() == null){
+            throw new IncorrectPasswordException();
+        }
+        foundAppUser.setPassword(changePasswordRequest.getNewPassword());
+        appUserRepository.save(foundAppUser);
+        return new RegisterResponse("password changed successful");
     }
 
     private AppUser findAppUserByEmail(String email) {
