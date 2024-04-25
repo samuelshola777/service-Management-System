@@ -26,4 +26,6 @@ public class AppointmentDto {
 
     private String time;
 
+    private Double cost;
+
 }

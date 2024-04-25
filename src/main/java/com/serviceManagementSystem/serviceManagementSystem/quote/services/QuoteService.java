@@ -22,4 +22,6 @@ public interface QuoteService {
 
     List<QuoteResponse> getQuoteForCustomer(String customerEmail);
 
+    List<QuoteResponse> getQuoteForStaff(String staffEmail);
+
 }

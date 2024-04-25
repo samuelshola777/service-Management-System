@@ -103,4 +103,19 @@ public class QuoteServiceImpl implements QuoteService {
                 .cost(savedQuote.getCost())
                 .build()).toList();
     }
+
+    @Override
+    public List<QuoteResponse> getQuoteForStaff(String staffEmail) {
+        List<Quote> allQuotes = quoteRepository.findAllByStaffAssignedTo(userService.getStaffUserByEmail(staffEmail));
+        return allQuotes.stream().map(savedQuote -> QuoteResponse.builder()
+                .id(savedQuote.getId())
+                .service(savedQuote.getService())
+                .customerEmailAddress(savedQuote.getCustomer().getEmail())
+                .staffEmailAddress(
+                        savedQuote.getStaffAssignedTo() == null ? "" : savedQuote.getStaffAssignedTo().getEmail()
+                )
+                .status(savedQuote.getStatus())
+                .cost(savedQuote.getCost())
+                .build()).toList();
+    }
 }

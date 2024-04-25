@@ -31,7 +31,7 @@ public class ReportServiceImpl implements ReportService {
         for (Appointment appointment : appointments) {
             ServiceProvided service = serviceHandler.getServiceById(appointment.getService().getId());
             Double revenue = revenueByServiceType.getOrDefault(service.getName(), 0.0);
-            revenueByServiceType.put(service.getName(), revenue + service.getCost());
+            revenueByServiceType.put(service.getName(), revenue + appointment.getCost());
         }
         List<RevenueReport> revenues = new ArrayList<>();
         revenueByServiceType.forEach((key, value) ->
@@ -62,6 +62,6 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<AppointmentDto> getCustomerRequestHistory(String customerEmail) {
-        return appointmentService.getQuoteForCustomer(customerEmail);
+        return appointmentService.getAppointmentsForCustomer(customerEmail);
     }
 }
