@@ -4,6 +4,8 @@ import com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.en
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class AppUser {
@@ -12,4 +14,5 @@ public class AppUser {
     private String password;
     private String fullName;
     private SystemRole role;
+    private LocalDateTime registrationDate;
 }
