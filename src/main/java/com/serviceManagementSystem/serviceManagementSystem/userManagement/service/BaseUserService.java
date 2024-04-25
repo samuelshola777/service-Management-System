@@ -12,7 +12,9 @@ public interface BaseUserService {
 
     LoginResponse loginCustomer(LoginRequest loginRequest);
 
-    RegisterResponse registerStaff(RegisterStaffRequest staffRequest);
+    OperationResponse inviteStaff(String email);
+
+    RegisterResponse registerStaff(RegisterRequest staffRequest);
 
     LoginResponse loginStaff(LoginRequest loginRequest);
 

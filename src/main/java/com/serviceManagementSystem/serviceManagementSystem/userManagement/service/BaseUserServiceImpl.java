@@ -81,18 +81,27 @@ public class BaseUserServiceImpl implements BaseUserService {
     }
 
     @Override
-    public RegisterResponse registerStaff(RegisterStaffRequest staffRequest) {
-        if (userRepository.existsByEmail(staffRequest.getEmail())) {
+    public OperationResponse inviteStaff(String email) {
+        if (userRepository.existsByEmail(email)) {
             throw new EmailAlreadyExistsException();
         }
         BaseUser baseUser = BaseUser.builder()
-                .email(staffRequest.getEmail())
-                .firstName(staffRequest.getFirstName())
-                .lastName(staffRequest.getLastName())
-                .password(hashPassword(staffRequest.getPassword()))
+                .email(email)
                 .role(SystemRole.STAFF)
                 .build();
-        BaseUser savedStaff = userRepository.save(baseUser);
+        userRepository.save(baseUser);
+        return OperationResponse.builder()
+                .status("SUCCESSFUL")
+                .build();
+    }
+
+    @Override
+    public RegisterResponse registerStaff(RegisterRequest staffRequest) {
+        BaseUser foundUser = userRepository.findByEmailAndRole(staffRequest.getEmail(), SystemRole.STAFF).orElseThrow(UserNotFoundException::new);
+        foundUser.setFirstName(staffRequest.getFirstName());
+        foundUser.setLastName(staffRequest.getLastName());
+        foundUser.setPassword(hashPassword(staffRequest.getPassword()));
+        BaseUser savedStaff = userRepository.save(foundUser);
         return RegisterResponse.builder()
                 .email(savedStaff.getEmail())
                 .firstName(savedStaff.getFirstName())
