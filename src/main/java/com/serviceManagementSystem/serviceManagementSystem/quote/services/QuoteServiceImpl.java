@@ -8,12 +8,15 @@ import com.serviceManagementSystem.serviceManagementSystem.quote.data.dtos.Quote
 import com.serviceManagementSystem.serviceManagementSystem.quote.data.models.Quote;
 import com.serviceManagementSystem.serviceManagementSystem.quote.data.models.enums.QuoteStatus;
 import com.serviceManagementSystem.serviceManagementSystem.quote.data.repository.QuoteRepository;
+import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.data.models.ServiceProvided;
 import com.serviceManagementSystem.serviceManagementSystem.servicesAvailable.service.ServiceAvailableHandler;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.BaseUser;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.service.BaseUserService;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,11 +28,13 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public QuoteResponse requestQuote(QuoteRequest quoteRequest) {
+        ServiceProvided service = servicesHandler.getServiceById(quoteRequest.getServiceId());
         Quote aQuote = Quote.builder()
                 .customer(userService.getCustomerUserByEmail(quoteRequest.getCustomerEmail()))
                 .staffAssignedTo(null)
                 .status(QuoteStatus.PENDING)
-                .service(servicesHandler.getServiceById(quoteRequest.getServiceId()))
+                .service(service)
+                .cost(service.getCost())
                 .build();
         Quote savedQuote = quoteRepository.save(aQuote);
         return QuoteResponse.builder()
@@ -38,6 +43,7 @@ public class QuoteServiceImpl implements QuoteService {
                 .customerEmailAddress(savedQuote.getCustomer().getEmail())
                 .staffEmailAddress("")
                 .status(savedQuote.getStatus())
+                .cost(savedQuote.getCost())
                 .build();
     }
 
@@ -74,11 +80,27 @@ public class QuoteServiceImpl implements QuoteService {
                 .customerEmailAddress(savedQuote.getCustomer().getEmail())
                 .staffEmailAddress(savedQuote.getStaffAssignedTo().getEmail())
                 .status(savedQuote.getStatus())
+                .cost(savedQuote.getCost())
                 .build();
     }
 
     @Override
     public Quote getQuoteById(Long quoteId) {
         return quoteRepository.findById(quoteId).orElseThrow(QuoteNotFoundException::new);
+    }
+
+    @Override
+    public List<QuoteResponse> getQuoteForCustomer(String customerEmail) {
+        List<Quote> allQuotes = quoteRepository.findAllByCustomer(userService.getCustomerUserByEmail(customerEmail));
+        return allQuotes.stream().map(savedQuote -> QuoteResponse.builder()
+                .id(savedQuote.getId())
+                .service(savedQuote.getService())
+                .customerEmailAddress(savedQuote.getCustomer().getEmail())
+                .staffEmailAddress(
+                        savedQuote.getStaffAssignedTo() == null ? "" : savedQuote.getStaffAssignedTo().getEmail()
+                )
+                .status(savedQuote.getStatus())
+                .cost(savedQuote.getCost())
+                .build()).toList();
     }
 }

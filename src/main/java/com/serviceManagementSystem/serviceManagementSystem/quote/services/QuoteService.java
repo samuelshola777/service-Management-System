@@ -6,6 +6,8 @@ import com.serviceManagementSystem.serviceManagementSystem.quote.data.dtos.Quote
 import com.serviceManagementSystem.serviceManagementSystem.quote.data.models.Quote;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 
+import java.util.List;
+
 public interface QuoteService {
 
     QuoteResponse requestQuote(QuoteRequest quoteRequest);
@@ -17,4 +19,7 @@ public interface QuoteService {
     QuoteResponse assignQuoteToStaff(AssignQuoteToStaffRequestDto requestDto);
 
     Quote getQuoteById(Long quoteId);
+
+    List<QuoteResponse> getQuoteForCustomer(String customerEmail);
+
 }

@@ -23,4 +23,6 @@ public class QuoteResponse {
 
     private QuoteStatus status;
 
+    private Double cost;
+
 }
