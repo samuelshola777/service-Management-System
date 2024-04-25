@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class ReportController {
     private final ReportService reportService;
 
     @GetMapping("/revenue")
-    public ResponseEntity<List<RevenueReport>> generateRevenueReport(@RequestParam String startDate, @RequestParam String endDate) {
+    public ResponseEntity<List<RevenueReport>> generateRevenueReport(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         return new ResponseEntity<>(reportService.generateRevenueReport(startDate, endDate), HttpStatus.OK);
     }
 
@@ -28,9 +29,9 @@ public class ReportController {
         return new ResponseEntity<>(reportService.generateWorkloadReport(), HttpStatus.OK);
     }
 
-    @GetMapping("/customer/history/{customerId}")
-    public ResponseEntity<List<AppointmentDto>> getCustomerRequestHistory(@PathVariable Long customerId) {
-        return new ResponseEntity<>(reportService.getCustomerRequestHistory(customerId), HttpStatus.OK);
+    @GetMapping("/customer/history/")
+    public ResponseEntity<List<AppointmentDto>> getCustomerRequestHistory(@RequestParam String customerEmail) {
+        return new ResponseEntity<>(reportService.getCustomerRequestHistory(customerEmail), HttpStatus.OK);
     }
 
 }

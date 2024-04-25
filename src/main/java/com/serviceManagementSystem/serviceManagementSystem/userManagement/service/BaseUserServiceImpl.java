@@ -33,7 +33,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 
     @PostConstruct
     private void createFirstStaff() {
-        if (!userRepository.existsByEmailAndRole(FIRST_EMAIL, SystemRole.STAFF)) {
+        if (!userRepository.existsByEmail(FIRST_EMAIL)) {
             BaseUser baseUser = BaseUser.builder()
                     .email(FIRST_EMAIL)
                     .password(hashPassword(PASSWORD_FOR_FIRST_STAFF))
@@ -46,7 +46,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 
     @Override
     public RegisterResponse registerCustomer(RegisterRequest registerRequest) {
-        if (userRepository.existsByEmailAndRole(registerRequest.getEmail(), SystemRole.CUSTOMER)) {
+        if (userRepository.existsByEmail(registerRequest.getEmail())) {
             throw new EmailAlreadyExistsException();
         }
         BaseUser baseUser = BaseUser.builder()
@@ -82,7 +82,7 @@ public class BaseUserServiceImpl implements BaseUserService {
 
     @Override
     public RegisterResponse registerStaff(RegisterStaffRequest staffRequest) {
-        if (userRepository.existsByEmailAndRole(staffRequest.getEmail(), SystemRole.STAFF)) {
+        if (userRepository.existsByEmail(staffRequest.getEmail())) {
             throw new EmailAlreadyExistsException();
         }
         BaseUser baseUser = BaseUser.builder()
