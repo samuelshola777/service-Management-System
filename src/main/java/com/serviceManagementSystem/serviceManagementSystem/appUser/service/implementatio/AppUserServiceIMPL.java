@@ -64,7 +64,7 @@ public class AppUserServiceIMPL implements AppUserService {
             foundAppUser.setFullName(request.getFullName());
         }
         appUserRepository.save(foundAppUser);
-        return null;
+        return new RegisterResponse("User profile Updated Successfully");
     }
 
     private AppUser findAppUserByEmail(String email) {
