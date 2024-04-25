@@ -3,12 +3,13 @@ package com.serviceManagementSystem.serviceManagementSystem.userManagement.servi
 import com.serviceManagementSystem.serviceManagementSystem.exceptions.EmailAlreadyExistsException;
 import com.serviceManagementSystem.serviceManagementSystem.exceptions.InvalidLoginDetailsExceptions;
 import com.serviceManagementSystem.serviceManagementSystem.exceptions.UserNotFoundException;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.ChangePasswordRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.LoginRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.RegisterRequest;
+import com.serviceManagementSystem.serviceManagementSystem.services.interfaces.BaseUserService;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.request.ChangePasswordRequest;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.request.LoginRequest;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.request.RegisterRequest;
 
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response.RegisterResponse;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.BaseUser;
+import com.serviceManagementSystem.serviceManagementSystem.data.dtos.response.RegisterResponse;
+import com.serviceManagementSystem.serviceManagementSystem.data.models.BaseUser;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
