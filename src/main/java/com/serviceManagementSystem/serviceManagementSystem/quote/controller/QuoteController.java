@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/quote")
 @RequiredArgsConstructor
@@ -36,6 +38,11 @@ public class QuoteController {
     @PostMapping("/assign")
     public ResponseEntity<QuoteResponse> assignQuoteToStaff(@RequestBody AssignQuoteToStaffRequestDto requestDto) {
         return new ResponseEntity<>(quoteService.assignQuoteToStaff(requestDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/getQuoteForCustomer")
+    public ResponseEntity<List<QuoteResponse>> getQuoteForCustomer(@RequestParam String customerEmail) {
+        return new ResponseEntity<>(quoteService.getQuoteForCustomer(customerEmail), HttpStatus.OK);
     }
 
 
