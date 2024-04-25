@@ -1,10 +1,7 @@
 package com.serviceManagementSystem.serviceManagementSystem.userManagement.controller;
 
 
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.ChangePasswordRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.LoginRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.RegisterRequest;
-import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.RegisterStaffRequest;
+import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.request.*;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response.LoginResponse;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.dtos.response.RegisterResponse;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.service.BaseUserService;
@@ -12,10 +9,7 @@ import com.serviceManagementSystem.serviceManagementSystem.utils.OperationRespon
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
@@ -52,6 +46,11 @@ public class UserController {
     @PostMapping("/changeCustomerPassword")
     public ResponseEntity<OperationResponse> changeCustomerPassword(@RequestBody ChangePasswordRequest registerRequest) {
         return new ResponseEntity<>(userService.changeUserPassword(registerRequest), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAccount")
+    public ResponseEntity<OperationResponse> deleteUserAccount(@RequestBody DeleteRequest deleteRequest) {
+        return new ResponseEntity<>(userService.deleteUserAccount(deleteRequest), HttpStatus.OK);
     }
 
 }

@@ -1,9 +1,8 @@
 package com.serviceManagementSystem.serviceManagementSystem.userManagement.data.repository;
 
-import com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.enums.SystemRole;
 import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.BaseUser;
+import com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model.SystemRole;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
 
 public interface BaseUserRepository extends JpaRepository<BaseUser, Long> {
