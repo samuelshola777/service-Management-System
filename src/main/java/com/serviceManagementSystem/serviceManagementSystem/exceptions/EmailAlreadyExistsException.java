@@ -2,13 +2,13 @@ package com.serviceManagementSystem.serviceManagementSystem.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class UserAlreadyExistsException extends ServiceManagementException {
+public class EmailAlreadyExistsException extends ServiceManagementException {
 
-    public UserAlreadyExistsException() {
+    public EmailAlreadyExistsException() {
         this("User already exists");
     }
 
-    public UserAlreadyExistsException(String message) {
+    public EmailAlreadyExistsException(String message) {
         super(message, HttpStatus.BAD_REQUEST);
     }
 

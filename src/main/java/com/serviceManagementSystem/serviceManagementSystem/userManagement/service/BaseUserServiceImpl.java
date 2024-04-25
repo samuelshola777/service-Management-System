@@ -30,7 +30,7 @@ public class BaseUserServiceImpl implements BaseUserService {
     @Override
     public RegisterResponse registerCustomer(RegisterRequest registerRequest) {
         if (userRepository.existsByEmailAndRole(registerRequest.getEmail(), SystemRole.CUSTOMER)) {
-            throw new UserAlreadyExistsException();
+            throw new EmailAlreadyExistsException();
         }
         BaseUser baseUser = BaseUser.builder()
                 .email(registerRequest.getEmail())
@@ -51,7 +51,7 @@ public class BaseUserServiceImpl implements BaseUserService {
     @Override
     public LoginResponse loginCustomer(LoginRequest loginRequest) {
         BaseUser foundUser = userRepository.findByEmailAndRole(loginRequest.getEmail(), SystemRole.CUSTOMER)
-                .orElseThrow(UserAlreadyExistsException::new);
+                .orElseThrow(EmailAlreadyExistsException::new);
         String hashedPassword = hashPassword(loginRequest.getPassword());
         if (hashedPassword.equals(foundUser.getPassword())) {
             return LoginResponse.builder()
@@ -66,7 +66,7 @@ public class BaseUserServiceImpl implements BaseUserService {
     @Override
     public RegisterResponse registerStaff(RegisterStaffRequest staffRequest) {
         if (userRepository.existsByEmailAndRole(staffRequest.getEmail(), SystemRole.STAFF)) {
-            throw new UserAlreadyExistsException();
+            throw new EmailAlreadyExistsException();
         }
         BaseUser baseUser = BaseUser.builder()
                 .email(staffRequest.getEmail())
@@ -87,7 +87,7 @@ public class BaseUserServiceImpl implements BaseUserService {
     @Override
     public LoginResponse loginStaff(LoginRequest loginRequest) {
         BaseUser foundUser = userRepository.findByEmailAndRole(loginRequest.getEmail(), SystemRole.STAFF)
-                .orElseThrow(UserAlreadyExistsException::new);
+                .orElseThrow(EmailAlreadyExistsException::new);
         String hashedPassword = hashPassword(loginRequest.getPassword());
         if (hashedPassword.equals(foundUser.getPassword())) {
             return LoginResponse.builder()
@@ -108,7 +108,7 @@ public class BaseUserServiceImpl implements BaseUserService {
             throw new UserNotFoundException();
         }
         BaseUser foundUser = userRepository.findByEmail(registerRequest.getEmail())
-                .orElseThrow(UserAlreadyExistsException::new);
+                .orElseThrow(EmailAlreadyExistsException::new);
         foundUser.setFirstName(registerRequest.getFirstName());
         foundUser.setLastName(registerRequest.getLastName());
         foundUser.setEmail(registerRequest.getEmail());
@@ -127,7 +127,7 @@ public class BaseUserServiceImpl implements BaseUserService {
             throw new UserNotFoundException();
         }
         BaseUser foundUser = userRepository.findByEmail(registerRequest.getEmail())
-                .orElseThrow(UserAlreadyExistsException::new);
+                .orElseThrow(EmailAlreadyExistsException::new);
         if (!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {
             throw new InvalidPasswordException();
         }
