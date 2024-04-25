@@ -28,8 +28,13 @@ public class UserController {
         return new ResponseEntity<>(userService.loginCustomer(loginRequest), HttpStatus.OK);
     }
 
+    @PostMapping("/inviteStaff")
+    public ResponseEntity<OperationResponse> inviteStaff(@RequestParam String email) {
+        return new ResponseEntity<>(userService.inviteStaff(email), HttpStatus.OK);
+    }
+
     @PostMapping("/registerStaff")
-    public ResponseEntity<RegisterResponse> registerStaff(@RequestBody RegisterStaffRequest staffRequest) {
+    public ResponseEntity<RegisterResponse> registerStaff(@RequestBody RegisterRequest staffRequest) {
         return new ResponseEntity<>(userService.registerStaff(staffRequest), HttpStatus.OK);
     }
 

@@ -1,6 +1,7 @@
 package com.serviceManagementSystem.serviceManagementSystem.appointment.controller;
 
 import com.serviceManagementSystem.serviceManagementSystem.appointment.data.dto.AppointmentDto;
+import com.serviceManagementSystem.serviceManagementSystem.appointment.data.dto.ScheduleAppointmentRequest;
 import com.serviceManagementSystem.serviceManagementSystem.appointment.services.AppointmentService;
 import com.serviceManagementSystem.serviceManagementSystem.utils.OperationResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,11 @@ import java.util.List;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
+
+    @PostMapping("/schedule")
+    public ResponseEntity<OperationResponse> scheduleAppointment(@RequestBody ScheduleAppointmentRequest newAppointment) {
+        return new ResponseEntity<>(appointmentService.scheduleAppointment(newAppointment), HttpStatus.OK);
+    }
 
     @GetMapping("/customer/upcoming")
     public ResponseEntity<List<AppointmentDto>> getCustomerUpcomingAppointments(@RequestParam String customerEmail) {
