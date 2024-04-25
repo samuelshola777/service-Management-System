@@ -2,5 +2,6 @@ package com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.e
 
 public enum SystemRole {
 
-    SUPER_STAFF, STAFF, CUSTOMER
+    STAFF, CUSTOMER
+
 }

@@ -1,16 +1,16 @@
-package com.serviceManagementSystem.serviceManagementSystem.admin.data.model;
+package com.serviceManagementSystem.serviceManagementSystem.userManagement.data.model;
 
 import com.serviceManagementSystem.serviceManagementSystem.appUser.data.model.enums.SystemRole;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@MappedSuperclass
 @Getter
 @Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BaseUser {
 
     @Id
