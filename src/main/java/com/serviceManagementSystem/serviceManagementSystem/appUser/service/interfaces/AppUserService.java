@@ -10,4 +10,5 @@ import com.serviceManagementSystem.serviceManagementSystem.appUser.data.reposito
 public interface AppUserService {
     AppUser registerAppUser(RegisterRequest request);
     RegisterResponse loginAppUser(LoginRequest request);
+    RegisterResponse logOutAppUser(LoginRequest request);
 }

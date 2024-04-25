@@ -40,6 +40,14 @@ public class AppUserServiceIMPL implements AppUserService {
         return new RegisterResponse("login successful");
     }
 
+    @Override
+    public RegisterResponse logOutAppUser(LoginRequest request) {
+        AppUser foundAppUser = findAppUserByEmail(request.getEmail());
+        if (!foundAppUser.getPassword().equalsIgnoreCase(request.getPassword()))
+            throw new IncorrectPasswordException("incorrect password");
+        return new RegisterResponse("logout successful");
+    }
+
     private AppUser findAppUserByEmail(String email) {
         AppUser foundAppUser = appUserRepository.findByEmail(email);
         if (foundAppUser == null) {
